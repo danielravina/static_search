@@ -4,7 +4,7 @@ TODO: Write a gem description
 
 ## Installation
 
-*NOTE: This gem is not live*
+NOTE: This gem is not live yet*
 
 Add this line to your application's Gemfile:
 
