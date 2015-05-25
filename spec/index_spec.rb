@@ -4,7 +4,7 @@ require 'httparty'
 describe "StaticSearch::IndexBuilder" do
   describe "build" do
     let(:indexer)   { StaticSearch::Index.new }
-    let(:temp_path) { 'spec/temp/' }
+    let(:temp_path) { 'spec/tmp/' }
     let(:example)   { "#{temp_path}/example.html"}
 
     before do
@@ -19,6 +19,7 @@ describe "StaticSearch::IndexBuilder" do
     it "should load the pages path" do
       p temp_path
       indexer.build temp_path
+      # pending
     end
 
 
