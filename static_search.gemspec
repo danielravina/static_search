@@ -18,7 +18,8 @@ Gem::Specification.new do |spec|
   spec.require_paths = ["lib"]
 
   spec.add_dependency             'nokogiri', '~> 1.6.6.2'
-  spec.add_dependency             'activerecord', '~> 4.2.1'
+  spec.add_development_dependency 'activerecord', '~> 4.2.1'
+  spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'database_cleaner',  '~> 1.3.0'
   spec.add_development_dependency 'httparty',         '~> 0.13.3'
   spec.add_development_dependency "rspec"
