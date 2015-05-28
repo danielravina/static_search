@@ -1,3 +1,5 @@
+# The engine file add the gem's migration to the Rails app it is located in
+
 class StaticSearch::Engine < ::Rails::Engine
   isolate_namespace StaticSearch
 

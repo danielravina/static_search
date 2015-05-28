@@ -4,17 +4,17 @@ class StaticSearch::IndexBuilder
 
   def build(pages_path)
     Dir["#{pages_path}/*"].each do |fname|
-      html = parse_file fname
-      text = to_text html
-      save_content(text)
+      html     = parse_file fname
+      filename = parse_url fname
+      text     = to_text html
+      save_content(text, filename)
     end
   end
 
-  def save_content (text)
-    static_content = StaticContent.new content: text
-    static_content.save
-    return static_content
+  def save_content (text, url)
+    StaticContent.create content: text, filename: url
   end
+
 
   def parse_file(fname)
     file = File.read(fname)
@@ -30,4 +30,14 @@ class StaticSearch::IndexBuilder
         .gsub(/(\s{2,})/," ")
         .strip
   end
+
+  def parse_url(fname)
+    filename = fname.split("/").last
+    if filename.match(/\./)
+      return filename.split(".").first
+    else
+      return filename
+    end
+  end
+
 end
