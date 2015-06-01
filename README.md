@@ -40,9 +40,10 @@ First make sure all of your static pages are in the right place:
 		    - privacy_policy.html
 
 Now, you are able to run the built-in rake task:
-
-	$ rake static:index
 	
+	$ rake static:index
+
+
 The output should be something like that
 	
 	Indexing index
@@ -50,6 +51,10 @@ The output should be something like that
 	Indexing faq
 	Indexing privacy_policy
 	-- Completed
+
+If	you made a change in the content and you want to update the index, simply run the rake task again and it will update everything.
+
+At this point, the content (text) of the page, including parsed erb, is saved in the database *without* the html tags. (TODO: option to keep the tags)
 
 ### Searcing
 
