@@ -31,13 +31,13 @@ Run the migration:
 ### Indexing
 First make sure all of your static pages are in the right place:
 
-	- app
-	  - views
-	    - pages
-	    - index.html
-	    - about.html
-	    - faq.html
-	    - privacy_policy.html
+	- app/
+	  - views/
+	    - pages/
+		    - index.html
+		    - about.html.erb
+		    - faq.html
+		    - privacy_policy.html
 
 Now, you are able to run the built-in rake task:
 
