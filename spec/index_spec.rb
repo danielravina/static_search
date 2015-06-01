@@ -39,11 +39,11 @@ describe StaticSearch::IndexBuilder do
     it "saves the content" do
       parsed_erb = index_builder.parse_file(example_file)
       text       = index_builder.to_text parsed_erb
-      url        = index_builder.parse_url example_file
+      action     = index_builder.parse_action example_file
 
-      expect(index_builder.save_content(text, url)).to be_kind_of StaticContent
+      expect(index_builder.save_content(text, action)).to be_kind_of StaticContent
       expect(StaticContent.count).to eq 1
-      expect(StaticContent.first.filename).to eq "example"
+      expect(StaticContent.first.controller_action).to eq "example"
       expect(StaticContent.first.content).to_not match(/<div|<script|<noscript|<a/)
     end
 

@@ -3,6 +3,7 @@ class CreateStaticContent < ActiveRecord::Migration
     create_table :static_content do |t|
       t.text :content
       t.string :filename
+      t.string :controller_action
       t.timestamps
     end
   end
