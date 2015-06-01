@@ -3,16 +3,20 @@ class StaticSearch::IndexBuilder
   require File.dirname(File.expand_path '../..', __FILE__) + '/app/models/static_content.rb'
 
   def build(pages_path)
-    Dir["#{pages_path}/*"].each do |fname|
-      html     = parse_file fname
-      filename = parse_action fname
-      text     = to_text html
-      save_content(text, filename)
+    Dir["#{pages_path}/**/*"].each do |fname|
+      unless File.directory? fname
+        html     = parse_file fname
+        filename = parse_action fname
+        text     = to_text html
+        save_content(text, filename)
+      end
     end
   end
 
   def save_content (text, action)
-    StaticContent.create content: text, controller_action: action
+    puts "Indexing #{action} page"
+    static_content = StaticContent.find_or_initialize_by(controller_action: action)
+    static_content.update content: text
   end
 
 
