@@ -1,8 +1,14 @@
 require "static_search/version"
-require 'engine' if defined?(Rails)
 require 'nokogiri'
 
-Dir["lib/tasks/**/*.rake"].each { |ext| load ext } if defined?(Rake)
+if defined?(Rails)
+  require 'engine'
+  Dir["lib/static_search/**/*.rb"].each { |ext| load ext }
+end
+
+if defined?(Rake)
+  Dir["lib/tasks/**/*.rake"].each { |ext| load ext }
+end
 
 module StaticSearch
 end

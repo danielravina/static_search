@@ -18,6 +18,7 @@ class StaticSearch::IndexBuilder
     puts "Indexing #{action} page"
     static_content = StaticContent.find_or_initialize_by(controller_action: action)
     static_content.update content: text
+    return static_content
   end
 
 
