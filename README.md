@@ -1,10 +1,13 @@
 # StaticSearch
 
-TODO: Write a gem description
+StaticSearch allow you to index your static content (i.e "pages") in your Rails app easily!. Why would you want to index static pages? You can search the content within it, generate analytics etc. 
+It's made of 2 modules - Indexing and Searching.
+
+#### Keep In mind:
+This gem is currently a work in progress and it is not a part of the Rubygem site. I am using it currently for a specific project and I change stuff on the fly. Once I feel it's stable enough, I will release it to the world
+
 
 ## Installation
-
-*NOTE: This gem is not live yet*
 
 Add this line to your application's Gemfile:
 
@@ -20,9 +23,37 @@ Or install it yourself as:
 
     $ gem install static-search
 
-## Usage
+Run the migration:
+	
+	$ rake db:migrate  
 
-TODO: Write usage instructions here
+## Usage
+### Indexing
+First make sure all of your static pages are in the right place:
+
+	- app
+	  - views
+	    - pages
+	    - index.html
+	    - about.html
+	    - faq.html
+	    - privacy_policy.html
+
+Now, you are able to run the built-in rake task:
+
+	$ rake static:index
+	
+The output should be something like that
+	
+	Indexing index
+	Indexing about
+	Indexing faq
+	Indexing privacy_policy
+	-- Completed
+
+### Searcing
+
+TODO: Build search module.
 
 ## Contributing
 

@@ -11,6 +11,7 @@ class StaticSearch::IndexBuilder
         save_content(text, filename)
       end
     end
+    puts "-- Completed"
   end
 
   def save_content (text, action)
