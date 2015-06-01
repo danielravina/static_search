@@ -7,7 +7,7 @@ require File.dirname(File.expand_path '../', __FILE__) + '/app/models/static_con
 describe StaticSearch::IndexBuilder do
   describe "build" do
     let(:index_builder)     { StaticSearch::IndexBuilder.new }
-    let(:example_direcotry) { 'spec/tmp' }
+    let(:example_direcotry) { 'spec/pages' }
     let(:example_file)      { "#{example_direcotry}/example.html" }
     let(:exampl_url)        { 'http://en.wikipedia.org/wiki/Special:Random' }
 
@@ -39,12 +39,26 @@ describe StaticSearch::IndexBuilder do
     it "saves the content" do
       parsed_erb = index_builder.parse_file(example_file)
       text       = index_builder.to_text parsed_erb
-      action     = index_builder.parse_action example_file
+      title     = index_builder.parse_title example_file
 
-      expect(index_builder.save_content(text, action)).to be_kind_of StaticContent
+      expect(index_builder.save_content(text, title)).to be_kind_of StaticContent
+      static_content = StaticContent.first
       expect(StaticContent.count).to eq 1
-      expect(StaticContent.first.controller_action).to eq "example"
-      expect(StaticContent.first.content).to_not match(/<div|<script|<noscript|<a/)
+      expect(static_content.title).to eq "example"
+      expect(static_content.content).to_not match(/<div|<script|<noscript|<a/)
+    end
+
+    it "includes the sub-directory in the file name" do
+      sub_dir  =  "sub"
+      filename = "subtest"
+      new_dir  = "#{example_direcotry}/#{sub_dir}/"
+      unless Dir.exists? new_dir
+        Dir.mkdir(new_dir)
+      end
+      temp_file = File.new(new_dir << filename + ".html", "w")
+      p
+      title     = index_builder.parse_title temp_file.path
+      expect(title).to eq sub_dir + "/" + filename
     end
 
   end

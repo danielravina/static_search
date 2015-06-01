@@ -6,17 +6,17 @@ class StaticSearch::IndexBuilder
     Dir["#{pages_path}/**/*"].each do |fname|
       unless File.directory? fname
         html     = parse_file fname
-        filename = parse_action fname
+        filename = parse_title fname
         text     = to_text html
         save_content(text, filename)
       end
     end
-    puts "-- Completed"
+    puts "-- Completed" if production?
   end
 
-  def save_content (text, action)
-    puts "Indexing #{action} page"
-    static_content = StaticContent.find_or_initialize_by(controller_action: action)
+  def save_content (text, title)
+    puts "Indexing #{title} page" if production?
+    static_content = StaticContent.find_or_initialize_by(title: title)
     static_content.update content: text
     return static_content
   end
@@ -37,8 +37,8 @@ class StaticSearch::IndexBuilder
         .strip
   end
 
-  def parse_action(fname)
-    filename = fname.split("/").last
+  def parse_title(fname)
+    filename = fname.split("/pages/").last
     if filename.match(/\./)
       return filename.split(".").first
     else
@@ -46,4 +46,9 @@ class StaticSearch::IndexBuilder
     end
   end
 
+  private
+
+  def production?
+    defined?(Rails) || defined?(Rake)
+  end
 end
