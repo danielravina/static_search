@@ -2,12 +2,12 @@ class StaticSearch::IndexBuilder
 
   require File.dirname(File.expand_path '../..', __FILE__) + '/app/models/static_content.rb'
 
-  def build(pages_path)
+  def build(pages_path, options)
     Dir["#{pages_path}/**/*"].each do |fname|
       unless File.directory? fname
-        html     = parse_file fname
+        erb      = parse_file fname
         filename = parse_title fname
-        text     = to_text html
+        text     = parse_content(erb, options[:keep_tags])
         save_content(text, filename)
       end
     end
@@ -27,14 +27,18 @@ class StaticSearch::IndexBuilder
     ERB.new file, nil, "%"
   end
 
-  def to_text (html)
-    html = Nokogiri.HTML html.result
+  def parse_content (erb, options = {})
+    html = Nokogiri.HTML erb.result
     html.css('script').remove
-    html.css("body")
-        .text
-        .gsub("\n"," ")
-        .gsub(/(\s{2,})/," ")
-        .strip
+    if options[:keep_tags]
+      html.css("body")
+    else
+      html.css("body")
+          .text
+          .gsub("\n"," ")
+          .gsub(/(\s{2,})/," ")
+          .strip
+    end
   end
 
   def parse_title(fname)
