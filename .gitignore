@@ -12,5 +12,5 @@
 *.o
 *.a
 mkmf.log
-spec/pages/*
 spec/pages
+spec/tmp
