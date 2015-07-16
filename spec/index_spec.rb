@@ -65,9 +65,19 @@ describe StaticSearch::IndexBuilder do
         Dir.mkdir(new_dir)
       end
       temp_file = File.new(new_dir << filename + ".html", "w")
-      p
+
       title     = index_builder.parse_title temp_file.path
       expect(title).to eq sub_dir + "/" + filename
+    end
+
+    it "converts link_to to _a_ tag" do
+      token =  SecureRandom.hex
+      open(example_file, 'a') do |f|
+        f << "<%= link_to '#{token}', 'www.example.com' %>"
+      end
+
+      parsed_erb = index_builder.parse_file(example_file)
+      expect(parsed_erb.result).to include "#{token}"
     end
 
   end

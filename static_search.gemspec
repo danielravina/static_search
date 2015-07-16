@@ -19,10 +19,12 @@ Gem::Specification.new do |spec|
 
   spec.add_dependency             'nokogiri', '~> 1.6.6.2'
   spec.add_dependency             'httparty', '~> 0.13.3'
+  spec.add_dependency             'actionview', '~> 4.2.3'
   spec.add_development_dependency 'activerecord', '~> 4.2.1'
   spec.add_development_dependency 'sqlite3'
   spec.add_development_dependency 'database_cleaner',  '~> 1.3.0'
   spec.add_development_dependency "rspec"
   spec.add_development_dependency "bundler", "~> 1.7"
   spec.add_development_dependency "rake", "~> 10.0"
+  spec.add_development_dependency 'pry', '~> 0.10.1'
 end
