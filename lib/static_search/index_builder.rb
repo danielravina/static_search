@@ -2,10 +2,8 @@ class StaticSearch::IndexBuilder
 
   require File.dirname(File.expand_path '../..', __FILE__) + '/app/models/static_content.rb'
 
-  require 'action_view'
-  include ActionView::Helpers::UrlHelper
-
   def build(pages_path, options = {})
+
     Dir["#{pages_path}/**/*"].each do |fname|
       unless File.directory? fname
         erb      = parse_file fname
@@ -31,7 +29,8 @@ class StaticSearch::IndexBuilder
   end
 
   def parse_content (erb, options = {})
-    html = Nokogiri.HTML erb.result
+    b = binding
+    html = Nokogiri.HTML erb.result b
     html.css('script').remove
     if options[:keep_tags]
       html.css("body")
@@ -42,6 +41,16 @@ class StaticSearch::IndexBuilder
           .gsub(/(\s{2,})/," ")
           .strip
     end
+  end
+  # WORK AROUND TO OVERIDE RAILS METHODS THAT DON"T WORK
+
+  def link_to a=nil,b=nil
+  end
+
+  def render path=nil, options=nil
+  end
+
+  def content_for a=nil,b=nil
   end
 
   def parse_title(fname)
