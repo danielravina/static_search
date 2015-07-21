@@ -53,6 +53,9 @@ class StaticSearch::IndexBuilder
   def content_for a=nil,b=nil
   end
 
+  def raw a=nil,b=nil
+  end
+
   def parse_title(fname)
     filename = fname.split("/pages/").last
     if filename.match(/\./)
