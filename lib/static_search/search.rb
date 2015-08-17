@@ -2,7 +2,7 @@ class StaticSearch::Search
 
   def self.find_content(q, options = {})
     return [] unless q.present?
-    result = StaticContent.where("LOWER(content) like ? OR LOWER(title) like ?", "% #{q} %", "%#{q}%");
+    result = StaticContent.where("LOWER(content) like ? OR LOWER(title) like ?", "%#{q}%", "%#{q}%");
     if options[:truncation]
       return result.map do |page|
         page = page.as_json
